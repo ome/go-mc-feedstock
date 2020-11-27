@@ -1,0 +1,48 @@
+{% set goname = "github.com/minio/mc" %}
+{% set version = "RELEASE.2020-11-17T00-39-14Z" %}
+#"RELEASE.2020-11-25T23-04-07Z" %}
+
+{% set pkgversion = "2020.11.17" %}
+
+{% set name = goname.split('/')[-1] %}
+{% set pkg_src = ('src/'+goname).replace("/", "\\" if win else "/") %}
+
+package:
+  name: go-{{ name|lower }}
+  version: {{ pkgversion }}
+
+source:
+  - folder: {{ pkg_src }}
+    git_url: https://{{ goname }}
+    git_tag: {{ version }}
+
+build:
+  number: 2
+  script:
+    - pushd {{ pkg_src }}
+    # Download non-vendored dependencies/source code only
+    - go get -d -v ./...
+    # https://hub.docker.com/r/minio/mc/dockerfile
+    - env CGO_ENABLED=0 GO111MODULE=on go install -v -ldflags "$(go run buildscripts/gen-ldflags.go)" -tags kqueue
+    # conda build -m .ci_support/osx_.yaml -c conda-forge . --dirty --keep-old-work
+
+
+requirements:
+  build:
+    - {{ compiler('go') }}
+
+test:
+  commands:
+    - test -x {{ target_gobin }}mc{{ target_goexe }}
+    - mc -h || true
+
+about:
+  home: http://{{ goname }}
+  license: APL-2.0
+  license_file: {{pkg_src}}/LICENSE
+  summary: 'A replacement for ls, cp, mkdir, diff and rsync commands for filesystems and object storage.'
+  dev_url: https://{{ goname }}
+
+extra:
+  recipe-maintainers:
+    - joshmoore
