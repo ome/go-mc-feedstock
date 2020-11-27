@@ -17,7 +17,7 @@ source:
     git_tag: {{ version }}
 
 build:
-  number: 2
+  number: 1
   script:
     - pushd {{ pkg_src }}
     # Download non-vendored dependencies/source code only
