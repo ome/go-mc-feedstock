@@ -1,8 +1,7 @@
 {% set goname = "github.com/minio/mc" %}
-{% set version = "RELEASE.2020-11-17T00-39-14Z" %}
-#"RELEASE.2020-11-25T23-04-07Z" %}
+{% set version = "RELEASE.2023-05-04T18-10-16Z" %}j
 
-{% set pkgversion = "2020.11.17" %}
+{% set pkgversion = "2023-05-04" %}
 
 {% set name = goname.split('/')[-1] %}
 {% set pkg_src = ('src/'+goname).replace("/", "\\" if win else "/") %}
@@ -17,7 +16,7 @@ source:
     git_tag: {{ version }}
 
 build:
-  number: 2
+  number: 1
   script:
     - pushd {{ pkg_src }}
     # Download non-vendored dependencies/source code only
