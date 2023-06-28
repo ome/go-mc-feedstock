@@ -1,5 +1,5 @@
 # minio-client written in go
-[![Anaconda-Server Badge](https://anaconda.org/joshmoore/go-mc/badges/version.svg)](https://anaconda.org/joshmoore/go-mc)
+[![Anaconda-Server Badge](https://anaconda.org/ome/go-mc/badges/version.svg)](https://anaconda.org/ome/go-mc)
 
 A replacement for ls, cp, mkdir, diff and rsync commands for filesystems and object storage.
 
